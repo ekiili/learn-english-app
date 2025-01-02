@@ -1,0 +1,13 @@
+{
+    "name": "learn-english-app",
+    "workspaces": [
+        "frontend",
+        "backend"
+    ],
+    "devDependencies": {
+        "concurrently": "^9.1.2"
+    },
+    "scripts": {
+        "start": "concurrently \"npm run dev --workspace frontend\" \"npm run start --workspace backend\""
+    }
+}
