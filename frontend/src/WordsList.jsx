@@ -6,6 +6,7 @@ const WordsList = () => {
     const [words, setWords] = useState([])
     const [finnish, setFinnish] = useState('')
     const [english, setEnglish] = useState('')
+    const [translations, setTranslations] = useState({})
 
     useEffect(() => {
         fetchWords()
@@ -56,6 +57,7 @@ const WordsList = () => {
         }
     }
 
+    // Update the status of a word (0: not learned, 1: learned)
     const updateStatus = async (id, status) => {
         try {
             const hr = await fetch(`${URL}/${id}/status`, {
@@ -75,6 +77,27 @@ const WordsList = () => {
             console.error('Error updating status:', error)
         }
     }
+
+    // Checking the users answer
+    const checkTranslation = (word) => {
+        const translation = translations[word.id]
+        if (translation.toLowerCase() === word.english_version.toLowerCase()) {
+            // If correct, update the status to "learned"
+            updateStatus(word.id, 1) // Call updateStatus with word.id and status 1 (learned)
+            alert('Correct translation!')
+        } else {
+            alert('Incorrect translation! Try again.')
+        }
+    }
+
+    // Update the state with the users translations
+    const translationHandler = (e, id) => {
+        setTranslations({
+            ...translations,
+            [id]: e.target.value
+        })
+    }
+
 
     return (
         <>
@@ -101,11 +124,17 @@ const WordsList = () => {
                 {words.length === 0 ? (<li>No words found.</li>)
                     :
                     (words.map((word) => (
-                        <div>
-                            <li key={word.id}>
-                                {word.finnish_version} - {word.english_version} ({word.status === 1 ? 'Learned' : 'Not Learned'})
+                        <div key={word.id}>
+                            <li>
+                                <strong>{word.finnish_version}</strong>
                             </li>
-                            <button onClick={() => updateStatus(word.id, 1)}>Learn word</button>
+                            <input
+                                type="text"
+                                placeholder="In English:"
+                                value={translations[word.id] || ""}
+                                onChange={(e) => translationHandler(e, word.id)}
+                            />
+                            <button onClick={() => checkTranslation(word)}>Check answer</button>
                         </div>
                     ))
                     )}
