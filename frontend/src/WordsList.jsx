@@ -15,7 +15,7 @@ const WordsList = () => {
     const fetchWords = async () => {
         try {
             const hr = await fetch(URL)
-            const data = await hr.json() // Parse the JSON response
+            const data = await hr.json() // Get the response
             setWords(data.data) // Access the data key which has the array of words
         } catch (error) {
             console.error('Error fetching words:', error)
@@ -42,7 +42,7 @@ const WordsList = () => {
                 }),
             })
 
-            const data = await hr.json() // Get the response in JSON format
+            const data = await hr.json() // Get the response
             console.log('Word added:', data)
 
             // Clear form fields
@@ -53,6 +53,26 @@ const WordsList = () => {
             fetchWords()
         } catch (error) {
             console.error('Error adding word:', error)
+        }
+    }
+
+    const updateStatus = async (id, status) => {
+        try {
+            const hr = await fetch(`${URL}/${id}/status`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    status: status, // Send status
+                })
+            })
+
+            const data = await hr.json() // Get the response
+            console.log('Status updated', data)
+
+        } catch (error) {
+            console.error('Error updating status:', error)
         }
     }
 
@@ -81,9 +101,12 @@ const WordsList = () => {
                 {words.length === 0 ? (<li>No words found.</li>)
                     :
                     (words.map((word) => (
-                        <li key={word.id}>
-                            {word.finnish_version} - {word.english_version} ({word.status === 1 ? 'Learned' : 'Not Learned'})
-                        </li>
+                        <div>
+                            <li key={word.id}>
+                                {word.finnish_version} - {word.english_version} ({word.status === 1 ? 'Learned' : 'Not Learned'})
+                            </li>
+                            <button onClick={() => updateStatus(word.id, 1)}>Learn word</button>
+                        </div>
                     ))
                     )}
             </ul>
