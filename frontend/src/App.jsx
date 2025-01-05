@@ -73,6 +73,15 @@ const App = () => {
             const data = await hr.json() // Get the response
             console.log('Status updated', data)
 
+            setWords((prevWords) =>
+                prevWords.map((word) => {
+                    if (word.id === id) {
+                        return { ...word, status: status }
+                    }
+                    return word
+                })
+            )
+
         } catch (error) {
             console.error('Error updating status:', error)
         }
@@ -132,7 +141,9 @@ const App = () => {
 
                             {/* If the word is learned (status is 1), display the correct translation */}
                             {word.status === 1 ? (
-                                <p className='correct-translation'><strong>Correct Translation:</strong> {word.english_version}</p>
+                                <p className='correct-translation'>
+                                    <strong>Correct Translation:</strong> {word.english_version}
+                                </p>
                             ) : (
                                 <>
                                     <input
@@ -141,9 +152,9 @@ const App = () => {
                                         value={translations[word.id] || ""}
                                         onChange={(e) => translationHandler(e, word.id)}
                                     />
+                                    <button onClick={() => checkTranslation(word)}>Check answer</button>
                                 </>
                             )}
-                            <button onClick={() => checkTranslation(word)}>Check answer</button>
                         </div>
                     ))
                     )}
