@@ -1,12 +1,14 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 const URL = 'http://localhost:3000/words'
+const password = 'admin'
 
 const App = () => {
     const [words, setWords] = useState([])
     const [finnish, setFinnish] = useState('')
     const [english, setEnglish] = useState('')
     const [translations, setTranslations] = useState({})
+    const [admin, setAdmin] = useState(false)
 
     useEffect(() => {
         fetchWords()
@@ -73,6 +75,7 @@ const App = () => {
             const data = await hr.json() // Get the response
             console.log('Status updated', data)
 
+            // Refresh the words list
             setWords((prevWords) =>
                 prevWords.map((word) => {
                     if (word.id === id) {
@@ -113,21 +116,40 @@ const App = () => {
 
             <h1>Learn English!</h1>
 
-            <form onSubmit={addWord}>
-                <input
-                    type="text"
-                    placeholder="Finnish word"
-                    value={finnish}
-                    onChange={(e) => setFinnish(e.target.value)}
-                />
-                <input
-                    type="text"
-                    placeholder="English word"
-                    value={english}
-                    onChange={(e) => setEnglish(e.target.value)}
-                />
-                <button type="submit">Add Word</button>
-            </form>
+            {/* Admin login */}
+            {!admin ? (
+                <form>
+                    <h3>Enter admin password to edit word list</h3>
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => {
+                            if (e.target.value === password) {
+                                setAdmin(true)
+                            }
+                        }}
+                    />
+                </form>
+            ) : null}
+
+            {/* If admin is logged in, display the add word form */}
+            {admin ? (
+                <form onSubmit={addWord}>
+                    <input
+                        type="text"
+                        placeholder="Finnish word"
+                        value={finnish}
+                        onChange={(e) => setFinnish(e.target.value)}
+                    />
+                    <input
+                        type="text"
+                        placeholder="English word"
+                        value={english}
+                        onChange={(e) => setEnglish(e.target.value)}
+                    />
+                    <button type="submit">Add Word</button>
+                </form>
+            ) : null}
 
             <h2>Words List</h2>
             <ul>
