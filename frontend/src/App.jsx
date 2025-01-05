@@ -138,12 +138,9 @@ const App = () => {
                                     <input
                                         type="text"
                                         placeholder="Type the English translation"
-                                        value={userTranslations[word.id] || ""}
+                                        value={translations[word.id] || ""}
                                         onChange={(e) => translationHandler(e, word.id)}
                                     />
-                                    <button onClick={() => checkTranslation(word)}>
-                                        Check Answer
-                                    </button>
                                 </>
                             )}
                             <button onClick={() => checkTranslation(word)}>Check answer</button>
