@@ -22,8 +22,6 @@ db.serialize(() => {
     )`, (err) => {
         if (err) {
             console.error('Error creating table:', err)
-        } else {
-            console.log('Table created or already exists')
         }
     })
 
@@ -105,6 +103,17 @@ app.put('/words/:id/status', (req, res) => {
             return res.status(404).json({ error: "Word not found." })
         }
         res.json({ message: "success" })
+    })
+})
+
+// Route to reset all word statuses to 0
+app.put('/words/reset-status', (req, res) => {
+    const query = `UPDATE words SET status = 0`
+    db.run(query, function (err) {
+        if (err) {
+            return res.status(500).json({ error: err.message })
+        }
+        res.json({ message: "All word statuses have been reset to 0 (not learned)" })
     })
 })
 

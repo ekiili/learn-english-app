@@ -76,20 +76,27 @@ const App = () => {
             console.log('Status updated', data)
 
             // Refresh the words list
-            setWords((prevWords) =>
-                prevWords.map((word) => {
-                    if (word.id === id) {
-                        return { ...word, status: status }
-                    }
-                    return word
-                })
-            )
+            fetchWords()
 
         } catch (error) {
             console.error('Error updating status:', error)
         }
     }
 
+    const resetStatuses = async () => {
+        try {
+            const hr = await fetch(`${URL}/reset-status`, {
+                method: 'PUT',
+            })
+            const data = await hr.json() // Get the response
+            console.log('Statuses reset:', data)
+
+            // Refresh the words list
+            fetchWords()
+        } catch (error) {
+            console.error('Error resetting statuses:', error)
+        }
+    }
     // Checking the users answer
     const checkTranslation = (word) => {
         const translation = translations[word.id]
@@ -119,7 +126,7 @@ const App = () => {
             {/* Admin login */}
             {!admin ? (
                 <form>
-                    <h3>Enter admin password to edit word list</h3>
+                    <h3>Enter admin password to edit word list:</h3>
                     <input
                         type="password"
                         placeholder="Password"
@@ -134,21 +141,24 @@ const App = () => {
 
             {/* If admin is logged in, display the add word form */}
             {admin ? (
-                <form onSubmit={addWord}>
-                    <input
-                        type="text"
-                        placeholder="Finnish word"
-                        value={finnish}
-                        onChange={(e) => setFinnish(e.target.value)}
-                    />
-                    <input
-                        type="text"
-                        placeholder="English word"
-                        value={english}
-                        onChange={(e) => setEnglish(e.target.value)}
-                    />
-                    <button type="submit">Add Word</button>
-                </form>
+                <>
+                    <form onSubmit={addWord}>
+                        <input
+                            type="text"
+                            placeholder="Finnish word"
+                            value={finnish}
+                            onChange={(e) => setFinnish(e.target.value)}
+                        />
+                        <input
+                            type="text"
+                            placeholder="English word"
+                            value={english}
+                            onChange={(e) => setEnglish(e.target.value)}
+                        />
+                        <button type="submit">Add Word</button>
+                    </form>
+                    <button onClick={() => resetStatuses()}>Reset all progress</button>
+                </>
             ) : null}
 
             <h2>Words List</h2>
