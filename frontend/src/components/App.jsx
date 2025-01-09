@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../stylesheets/App.css'
 import { fetchHelper } from './FetchHelper'
+import { fetchWords } from './ApiConnections/FetchWords'
 import { AdminLogin } from './AdminLogin'
 const URL = 'http://localhost:3000/words'
 const password = 'admin'
@@ -13,20 +14,8 @@ const App = () => {
     const [admin, setAdmin] = useState(false)
 
     useEffect(() => {
-        fetchWords()
+        fetchWords(setWords)
     }, [])
-
-
-
-    // Fetch words from backend
-    const fetchWords = async () => {
-        try {
-            const data = await fetchHelper(URL, "GET")
-            setWords(data.data) // Access the data key which has the array of words
-        } catch (error) {
-            console.error('Error fetching words:', error)
-        }
-    }
 
     // Handle form submission to add a new word
     const addWord = async (e) => {
@@ -50,7 +39,7 @@ const App = () => {
             setEnglish('')
 
             // Re-fetch words list to include the new word
-            fetchWords()
+            fetchWords(setWords)
         } catch (error) {
             console.error('Error adding word:', error)
         }
@@ -67,7 +56,7 @@ const App = () => {
             console.log('Status updated', data)
 
             // Refresh the words list
-            fetchWords()
+            fetchWords(setWords)
 
         } catch (error) {
             console.error('Error updating status:', error)
@@ -84,7 +73,7 @@ const App = () => {
             console.log('Statuses reset:', data)
 
             // Refresh the words list
-            fetchWords()
+            fetchWords(setWords)
         } catch (error) {
             console.error('Error resetting statuses:', error)
         }
@@ -99,6 +88,11 @@ const App = () => {
             alert('Correct translation!')
         } else {
             alert('Incorrect translation! Try again.')
+            // Reset the translation input field
+            setTranslations({
+                ...translations,
+                [word.id]: ''
+            })
         }
     }
 
