@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function AdminLogin({ password, setAdmin }) {
+export const AdminLogin = ({ password, setAdmin }) => {
     return (
         <div className="admin-form-wrapper">
             <form className='admin-form'>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import '../stylesheets/App.css'
-import AdminLogin from './AdminLogin'
+import { fetchHelper } from './FetchHelper'
+import { AdminLogin } from './AdminLogin'
 const URL = 'http://localhost:3000/words'
 const password = 'admin'
 
@@ -15,11 +16,12 @@ const App = () => {
         fetchWords()
     }, [])
 
+
+
     // Fetch words from backend
     const fetchWords = async () => {
         try {
-            const hr = await fetch(URL)
-            const data = await hr.json() // Get the response
+            const data = await fetchHelper(URL, "GET")
             setWords(data.data) // Access the data key which has the array of words
         } catch (error) {
             console.error('Error fetching words:', error)
@@ -28,25 +30,19 @@ const App = () => {
 
     // Handle form submission to add a new word
     const addWord = async (e) => {
-        e.preventDefault()
+        e.preventDefault()  // Prevent React from refreshing the page
         if (!finnish || !english) {
             alert('Both Finnish and English words are required')
             return
         }
 
         try {
-            const hr = await fetch(URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
+            const data = await fetchHelper(URL, 'POST',
+                {
                     finnish_version: finnish,
                     english_version: english,
-                }),
-            })
-
-            const data = await hr.json() // Get the response
+                }
+            )
             console.log('Word added:', data)
 
             // Clear form fields
@@ -63,17 +59,11 @@ const App = () => {
     // Update the status of a word (0: not learned, 1: learned)
     const updateStatus = async (id, status) => {
         try {
-            const hr = await fetch(`${URL}/${id}/status`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    status: status, // Send status
-                })
-            })
-
-            const data = await hr.json() // Get the response
+            const data = await fetchHelper(
+                `${URL}/${id}/status`,
+                'PUT',
+                { status: status }
+            )
             console.log('Status updated', data)
 
             // Refresh the words list
@@ -84,12 +74,13 @@ const App = () => {
         }
     }
 
+    // Reset all statuses to 0 (not learned)
     const resetStatuses = async () => {
         try {
-            const hr = await fetch(`${URL}/reset-status`, {
-                method: 'PUT',
-            })
-            const data = await hr.json() // Get the response
+            const data = await fetchHelper(
+                `${URL}/reset-status`,
+                'PUT'
+            )
             console.log('Statuses reset:', data)
 
             // Refresh the words list
@@ -98,6 +89,7 @@ const App = () => {
             console.error('Error resetting statuses:', error)
         }
     }
+
     // Checking the users answer
     const checkTranslation = (word) => {
         const translation = translations[word.id]
