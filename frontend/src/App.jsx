@@ -125,72 +125,82 @@ const App = () => {
 
             {/* Admin login */}
             {!admin ? (
-                <form>
-                    <h3>Enter admin password to edit word list:</h3>
-                    <input
-                        type="password"
-                        placeholder="Password"
-                        onChange={(e) => {
-                            if (e.target.value === password) {
-                                setAdmin(true)
-                            }
-                        }}
-                    />
-                </form>
+                <div className="admin-form-wrapper">
+                    <form className='admin-form'>
+                        <h3>Enter admin password to edit word list:</h3>
+                        <input
+                            className='admin-password'
+                            type="password"
+                            placeholder="Password"
+                            onChange={(e) => {
+                                if (e.target.value === password) {
+                                    setAdmin(true)
+                                }
+                            }}
+                        />
+                    </form>
+                </div>
             ) : null}
 
             {/* If admin is logged in, display the add word form */}
             {admin ? (
-                <>
-                    <form onSubmit={addWord}>
-                        <input
-                            type="text"
-                            placeholder="Finnish word"
-                            value={finnish}
-                            onChange={(e) => setFinnish(e.target.value)}
-                        />
-                        <input
-                            type="text"
-                            placeholder="English word"
-                            value={english}
-                            onChange={(e) => setEnglish(e.target.value)}
-                        />
-                        <button type="submit">Add Word</button>
-                    </form>
-                    <button onClick={() => resetStatuses()}>Reset all progress</button>
-                </>
+                <div className="admin-wrapper">
+                    <div className="add-word-wrapper">
+                        <form
+                            onSubmit={addWord}>
+                            <input
+                                type="text"
+                                placeholder="Finnish word"
+                                value={finnish}
+                                onChange={(e) => setFinnish(e.target.value)}
+                            />
+                            <input
+                                type="text"
+                                placeholder="English translation"
+                                value={english}
+                                onChange={(e) => setEnglish(e.target.value)}
+                            />
+                            <button className='add-word-button btn' type="submit">Add Word</button>
+                        </form>
+                    </div>
+                    <button className='reset-button btn'
+                        onClick={() => resetStatuses()}>Reset all progress</button>
+                </div>
             ) : null}
 
-            <h2>Words List</h2>
-            <ul>
-                {words.length === 0 ? (<li>No words found.</li>)
-                    :
-                    (words.map((word) => (
-                        <div key={word.id}>
-                            <li>
-                                <strong>{word.finnish_version}</strong>
-                            </li>
+            <div className="words-list-wrapper">
+                <h2>Words List</h2>
+                <ul className='words-list'>
+                    {words.length === 0 ? (<li>No words found.</li>)
+                        :
+                        (words.map((word) => (
+                            <div key={word.id}>
+                                <li>
+                                    <strong>{word.finnish_version}:</strong>
+                                </li>
 
-                            {/* If the word is learned (status is 1), display the correct translation */}
-                            {word.status === 1 ? (
-                                <p className='correct-translation'>
-                                    <strong>Correct Translation:</strong> {word.english_version}
-                                </p>
-                            ) : (
-                                <>
-                                    <input
-                                        type="text"
-                                        placeholder="Type the English translation"
-                                        value={translations[word.id] || ""}
-                                        onChange={(e) => translationHandler(e, word.id)}
-                                    />
-                                    <button onClick={() => checkTranslation(word)}>Check answer</button>
-                                </>
-                            )}
-                        </div>
-                    ))
-                    )}
-            </ul>
+                                {/* If the word is learned (status is 1), display the correct translation */}
+                                {word.status === 1 ? (
+                                    <p className='correct-translation'>
+                                        <strong>Correct Translation:</strong> {word.english_version}
+                                    </p>
+                                ) : (
+                                    <>
+                                        <input className='translation-input'
+                                            type="text"
+                                            placeholder="Type the English translation"
+                                            value={translations[word.id] || ""}
+                                            onChange={(e) => translationHandler(e, word.id)}
+                                        />
+                                        <button className='check-button btn'
+                                            onClick={() => checkTranslation(word)}>Check answer</button>
+                                    </>
+                                )}
+                            </div>
+                        ))
+                        )}
+                </ul>
+            </div>
         </div>
     )
 }

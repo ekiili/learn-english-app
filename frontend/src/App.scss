@@ -1,0 +1,45 @@
+.app {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.correct-translation {
+    color: rgb(11, 234, 11);
+}
+
+$transparent-border: 3px solid rgba(255, 255, 255, 0.4);
+
+@mixin style {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2rem;
+    background-color: transparent;
+    color: #fff;
+    border: $transparent-border;
+    border-radius: 40px;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn {
+    @include style;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 20px;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+input {
+    @include style;
+    padding: 10px;
+    margin: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.words-list {
+    font-size: 1.2em;
+}
