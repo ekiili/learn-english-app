@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import './App.css'
+import '../stylesheets/App.css'
+import AdminLogin from './AdminLogin'
 const URL = 'http://localhost:3000/words'
 const password = 'admin'
 
@@ -124,23 +125,7 @@ const App = () => {
             <h1>Learn English!</h1>
 
             {/* Admin login */}
-            {!admin ? (
-                <div className="admin-form-wrapper">
-                    <form className='admin-form'>
-                        <h3>Enter admin password to edit word list:</h3>
-                        <input
-                            className='admin-password'
-                            type="password"
-                            placeholder="Password"
-                            onChange={(e) => {
-                                if (e.target.value === password) {
-                                    setAdmin(true)
-                                }
-                            }}
-                        />
-                    </form>
-                </div>
-            ) : null}
+            {!admin ? <AdminLogin setAdmin={setAdmin} password={password} /> : null}
 
             {/* If admin is logged in, display the add word form */}
             {admin ? (
