@@ -4,7 +4,8 @@ import { fetchWords } from './ApiConnections/FetchWords'
 import { addWord } from './ApiConnections/AddWord'
 import { updateStatus } from './ApiConnections/UpdateStatus'
 import { resetStatuses } from './ApiConnections/ResetStatuses'
-import { AdminLogin } from './AdminLogin'
+import { AdminLogin } from './AdminOnly/AdminLogin'
+import { AdminAddWord } from './AdminOnly/AdminAddWord'
 const URL = 'http://localhost:3000/words'
 const password = 'admin'
 
@@ -67,6 +68,15 @@ const App = () => {
         })
     }
 
+    // Props for the AdminAddWord component
+    const adminAddWordProps = {
+        finnish,
+        setFinnish,
+        english,
+        setEnglish,
+        handleAddWord
+    }
+
     return (
         <div className="app">
 
@@ -78,24 +88,7 @@ const App = () => {
             {/* If admin is logged in, display the add word form */}
             {admin ? (
                 <div className="admin-wrapper">
-                    <div className="add-word-wrapper">
-                        <form
-                            onSubmit={handleAddWord}>
-                            <input
-                                type="text"
-                                placeholder="Finnish word"
-                                value={finnish}
-                                onChange={(e) => setFinnish(e.target.value)}
-                            />
-                            <input
-                                type="text"
-                                placeholder="English translation"
-                                value={english}
-                                onChange={(e) => setEnglish(e.target.value)}
-                            />
-                            <button className='add-word-button btn' type="submit">Add Word</button>
-                        </form>
-                    </div>
+                    <AdminAddWord {...adminAddWordProps} />
                     <button className='reset-button btn'
                         onClick={() => {
                             resetStatuses()
