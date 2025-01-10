@@ -3,6 +3,7 @@ import '../stylesheets/App.css'
 import { fetchHelper } from './ApiConnections/FetchHelper'
 import { fetchWords } from './ApiConnections/FetchWords'
 import { addWord } from './ApiConnections/AddWord'
+import { updateStatus } from './ApiConnections/UpdateStatus'
 import { AdminLogin } from './AdminLogin'
 const URL = 'http://localhost:3000/words'
 const password = 'admin'
@@ -36,24 +37,6 @@ const App = () => {
         fetchWords(setWords)
     }
 
-    // Update the status of a word (0: not learned, 1: learned)
-    const updateStatus = async (id, status) => {
-        try {
-            const data = await fetchHelper(
-                `${URL}/${id}/status`,
-                'PUT',
-                { status: status }
-            )
-            console.log('Status updated', data)
-
-            // Refresh the words list
-            fetchWords(setWords)
-
-        } catch (error) {
-            console.error('Error updating status:', error)
-        }
-    }
-
     // Reset all statuses to 0 (not learned)
     const resetStatuses = async () => {
         try {
@@ -71,12 +54,17 @@ const App = () => {
     }
 
     // Checking the users answer
-    const checkTranslation = (word) => {
+    const checkTranslation = async (word) => {
         const translation = translations[word.id]
+        // If correct, update the status to "learned"¨
         if (translation.toLowerCase() === word.english_version.toLowerCase()) {
-            // If correct, update the status to "learned"
-            updateStatus(word.id, 1) // Call updateStatus with word.id and status 1 (learned)
+
+            // Call updateStatus with word.id and status 1 (learned)
+            await updateStatus(word.id, 1)
             alert('Correct translation!')
+
+            // Refresh the words list
+            fetchWords(setWords)
         } else {
             alert('Incorrect translation! Try again.')
             // Reset the translation input field
