@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
 import '../stylesheets/App.css'
-import { fetchHelper } from './ApiConnections/FetchHelper'
 import { fetchWords } from './ApiConnections/FetchWords'
 import { addWord } from './ApiConnections/AddWord'
 import { updateStatus } from './ApiConnections/UpdateStatus'
+import { resetStatuses } from './ApiConnections/ResetStatuses'
 import { AdminLogin } from './AdminLogin'
 const URL = 'http://localhost:3000/words'
 const password = 'admin'
@@ -35,22 +35,6 @@ const App = () => {
 
         // Re-fetch words list to include the new word
         fetchWords(setWords)
-    }
-
-    // Reset all statuses to 0 (not learned)
-    const resetStatuses = async () => {
-        try {
-            const data = await fetchHelper(
-                `${URL}/reset-status`,
-                'PUT'
-            )
-            console.log('Statuses reset:', data)
-
-            // Refresh the words list
-            fetchWords(setWords)
-        } catch (error) {
-            console.error('Error resetting statuses:', error)
-        }
     }
 
     // Checking the users answer
@@ -113,7 +97,10 @@ const App = () => {
                         </form>
                     </div>
                     <button className='reset-button btn'
-                        onClick={() => resetStatuses()}>Reset all progress</button>
+                        onClick={() => {
+                            resetStatuses()
+                            fetchWords(setWords)
+                        }}>Reset all progress</button>
                 </div>
             ) : null}
 
