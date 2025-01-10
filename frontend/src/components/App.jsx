@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import '../stylesheets/App.css'
-import { fetchHelper } from './FetchHelper'
+import { fetchHelper } from './ApiConnections/FetchHelper'
 import { fetchWords } from './ApiConnections/FetchWords'
+import { addWord } from './ApiConnections/AddWord'
 import { AdminLogin } from './AdminLogin'
 const URL = 'http://localhost:3000/words'
 const password = 'admin'
@@ -13,36 +14,26 @@ const App = () => {
     const [translations, setTranslations] = useState({})
     const [admin, setAdmin] = useState(false)
 
+    // Fetch words list on component mount
     useEffect(() => {
         fetchWords(setWords)
     }, [])
 
     // Handle form submission to add a new word
-    const addWord = async (e) => {
-        e.preventDefault()  // Prevent React from refreshing the page
-        if (!finnish || !english) {
-            alert('Both Finnish and English words are required')
-            return
-        }
+    const handleAddWord = async (e) => {
 
-        try {
-            const data = await fetchHelper(URL, 'POST',
-                {
-                    finnish_version: finnish,
-                    english_version: english,
-                }
-            )
-            console.log('Word added:', data)
+        // Prevent React from refreshing the page
+        e.preventDefault()
 
-            // Clear form fields
-            setFinnish('')
-            setEnglish('')
+        // Add the new word
+        await addWord(finnish, english)
 
-            // Re-fetch words list to include the new word
-            fetchWords(setWords)
-        } catch (error) {
-            console.error('Error adding word:', error)
-        }
+        // Clear form fields
+        setFinnish('')
+        setEnglish('')
+
+        // Re-fetch words list to include the new word
+        fetchWords(setWords)
     }
 
     // Update the status of a word (0: not learned, 1: learned)
@@ -104,7 +95,6 @@ const App = () => {
         })
     }
 
-
     return (
         <div className="app">
 
@@ -118,7 +108,7 @@ const App = () => {
                 <div className="admin-wrapper">
                     <div className="add-word-wrapper">
                         <form
-                            onSubmit={addWord}>
+                            onSubmit={handleAddWord}>
                             <input
                                 type="text"
                                 placeholder="Finnish word"

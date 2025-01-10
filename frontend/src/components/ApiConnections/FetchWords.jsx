@@ -1,4 +1,4 @@
-import { fetchHelper } from '../FetchHelper'
+import { fetchHelper } from './FetchHelper'
 
 export const fetchWords = async (setWords) => {
     const URL = 'http://localhost:3000/words'
