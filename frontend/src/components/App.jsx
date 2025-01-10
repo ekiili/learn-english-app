@@ -6,6 +6,7 @@ import { updateStatus } from './ApiConnections/UpdateStatus'
 import { AdminLogin } from './AdminOnly/AdminLogin'
 import { AdminAddWord } from './AdminOnly/AdminAddWord'
 import { AdminResetButton } from './AdminOnly/AdminResetButton'
+import { AdminDeleteWord } from './AdminOnly/AdminDeleteWord'
 const URL = 'http://localhost:3000/words'
 const password = 'admin'
 
@@ -85,6 +86,12 @@ const App = () => {
         setTranslations
     }
 
+    const adminDeleteWordProps = {
+        fetchWords,
+        setWords,
+        words
+    }
+
     return (
         <div className="app">
 
@@ -96,8 +103,9 @@ const App = () => {
             {/* If admin is logged in, display the add word form */}
             {admin ? (
                 <div className="admin-wrapper">
-                    <AdminAddWord {...adminAddWordProps} />
                     <AdminResetButton {...adminResetButtonProps} />
+                    <AdminAddWord {...adminAddWordProps} />
+                    <AdminDeleteWord {...adminDeleteWordProps} />
                 </div>
             ) : null}
 
