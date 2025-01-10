@@ -3,9 +3,9 @@ import '../stylesheets/App.css'
 import { fetchWords } from './ApiConnections/FetchWords'
 import { addWord } from './ApiConnections/AddWord'
 import { updateStatus } from './ApiConnections/UpdateStatus'
-import { resetStatuses } from './ApiConnections/ResetStatuses'
 import { AdminLogin } from './AdminOnly/AdminLogin'
 import { AdminAddWord } from './AdminOnly/AdminAddWord'
+import { AdminResetButton } from './AdminOnly/AdminResetButton'
 const URL = 'http://localhost:3000/words'
 const password = 'admin'
 
@@ -50,8 +50,10 @@ const App = () => {
 
             // Refresh the words list
             fetchWords(setWords)
+
         } else {
             alert('Incorrect translation! Try again.')
+
             // Reset the translation input field
             setTranslations({
                 ...translations,
@@ -77,6 +79,12 @@ const App = () => {
         handleAddWord
     }
 
+    const adminResetButtonProps = {
+        fetchWords,
+        setWords,
+        setTranslations
+    }
+
     return (
         <div className="app">
 
@@ -89,11 +97,7 @@ const App = () => {
             {admin ? (
                 <div className="admin-wrapper">
                     <AdminAddWord {...adminAddWordProps} />
-                    <button className='reset-button btn'
-                        onClick={() => {
-                            resetStatuses()
-                            fetchWords(setWords)
-                        }}>Reset all progress</button>
+                    <AdminResetButton {...adminResetButtonProps} />
                 </div>
             ) : null}
 
