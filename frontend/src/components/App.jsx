@@ -3,19 +3,13 @@ import '../stylesheets/App.css'
 import { fetchWords } from './ApiConnections/FetchWords'
 import { addWord } from './ApiConnections/AddWord'
 import { updateStatus } from './ApiConnections/UpdateStatus'
-import { AdminLogin } from './AdminOnly/AdminLogin'
-import { AdminAddWord } from './AdminOnly/AdminAddWord'
-import { AdminResetButton } from './AdminOnly/AdminResetButton'
-import { AdminDeleteWord } from './AdminOnly/AdminDeleteWord'
-const URL = 'http://localhost:3000/words'
-const password = 'admin'
+import { AdminPage } from './AdminOnly/AdminPage'
 
 const App = () => {
     const [words, setWords] = useState([])
     const [finnish, setFinnish] = useState('')
     const [english, setEnglish] = useState('')
     const [translations, setTranslations] = useState({})
-    const [admin, setAdmin] = useState(false)
 
     // Fetch words list on component mount
     useEffect(() => {
@@ -71,25 +65,16 @@ const App = () => {
         })
     }
 
-    // Props for the AdminAddWord component
-    const adminAddWordProps = {
+    // Props for the admin page
+    const adminProps = {
+        setWords,
+        words,
         finnish,
         setFinnish,
         english,
         setEnglish,
-        handleAddWord
-    }
-
-    const adminResetButtonProps = {
-        fetchWords,
-        setWords,
+        handleAddWord,
         setTranslations
-    }
-
-    const adminDeleteWordProps = {
-        fetchWords,
-        setWords,
-        words
     }
 
     return (
@@ -97,17 +82,8 @@ const App = () => {
 
             <h1>Learn English!</h1>
 
-            {/* Admin login */}
-            {!admin ? <AdminLogin setAdmin={setAdmin} password={password} /> : null}
-
-            {/* If admin is logged in, display the add word form */}
-            {admin ? (
-                <div className="admin-wrapper">
-                    <AdminResetButton {...adminResetButtonProps} />
-                    <AdminAddWord {...adminAddWordProps} />
-                    <AdminDeleteWord {...adminDeleteWordProps} />
-                </div>
-            ) : null}
+            {/* Admin page */}
+            <AdminPage {...adminProps} />
 
             <div className="words-list-wrapper">
                 <h2>Words List</h2>

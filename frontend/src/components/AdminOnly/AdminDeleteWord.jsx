@@ -1,7 +1,9 @@
 import React, { useState } from "react"
 import { deleteWord } from "../ApiConnections/DeleteWord"
+import { fetchWords } from '../ApiConnections/FetchWords'
 
-export const AdminDeleteWord = ({ fetchWords, setWords, words }) => {
+
+export const AdminDeleteWord = ({ setWords, words }) => {
     const [deleteTarget, setDeleteTarget] = useState('')
 
     const handleDelete = async () => {

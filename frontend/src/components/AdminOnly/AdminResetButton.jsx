@@ -1,7 +1,8 @@
 import React from 'react'
 import { resetStatuses } from '../ApiConnections/ResetStatuses'
+import { fetchWords } from '../ApiConnections/FetchWords'
 
-export const AdminResetButton = ({ fetchWords, setWords, setTranslations }) => {
+export const AdminResetButton = ({ setWords, setTranslations }) => {
 
     return (
         <button className='reset-button btn' onClick={() => {
