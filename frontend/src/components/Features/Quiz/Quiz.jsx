@@ -1,20 +1,27 @@
 import React, { useEffect, useState } from 'react'
 import { getRandomWord } from './QuizLogic/getRandomWord'
+import { checkAnswer } from './QuizLogic/checkAnswer'
 import { QuizTranslationInput } from './QuizTranslationInput'
 import { QuizSubmitButton } from './QuizSubmitButton'
-import { checkAnswer } from './QuizLogic/checkAnswer'
+import { QuizNextWordButton } from './QuizNextWordButton'
 
 export const Quiz = ({ words }) => {
 
     const [randomWord, setRandomWord] = useState(null)
-    const [userAnswer, setUserAnswer] = useState('')
+    const [userAnswer, setUserAnswer] = useState("")
 
     useEffect(() => {
-        setRandomWord(getRandomWord(words))
+        getNextWord()
     }, [words])
 
     const handleSubmit = () => {
         checkAnswer(userAnswer, randomWord)
+        setUserAnswer("")
+    }
+
+    const getNextWord = () => {
+        setRandomWord(getRandomWord(words))
+        setUserAnswer("")
     }
 
     const translationInputProps = {
@@ -23,7 +30,7 @@ export const Quiz = ({ words }) => {
     }
 
     return (
-        <div className="quiz-wrapper">
+        <div className='quiz-wrapper'>
             <h2>Translation Quiz</h2>
 
             {randomWord ? (
@@ -31,6 +38,7 @@ export const Quiz = ({ words }) => {
                     <p className='random-word'>{randomWord.finnish_version}:</p>
                     <QuizTranslationInput {...translationInputProps} />
                     <QuizSubmitButton handleSubmit={handleSubmit} />
+                    <QuizNextWordButton getNextWord={getNextWord} />
                 </div>
             ) : (
                 // Show loading message while randomWord is null
