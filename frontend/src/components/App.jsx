@@ -49,10 +49,12 @@ const App = () => {
         <BrowserRouter>
             <div className="app">
                 <Header />
-                <Routes>
-                    <Route path="/" element={<Quiz words={words} />} />
-                    <Route path="/admin" element={<AdminPage {...adminProps} />} />
-                </Routes>
+                <main className="app-content">
+                    <Routes>
+                        <Route path="/" element={<Quiz words={words} />} />
+                        <Route path="/admin" element={<AdminPage {...adminProps} />} />
+                    </Routes>
+                </main>
             </div>
         </BrowserRouter>
     )
