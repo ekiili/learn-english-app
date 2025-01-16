@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import '../stylesheets/App.css'
 import { fetchWords } from './ApiConnections/FetchWords'
 import { addWord } from './ApiConnections/AddWord'
-import { Navbar } from './Navigation/Navbar'
+import { Navbar } from './Features/Navbar'
 import { Quiz } from './Features/Quiz/Quiz'
 import { AdminPage } from './AdminOnly/AdminPage'
 
