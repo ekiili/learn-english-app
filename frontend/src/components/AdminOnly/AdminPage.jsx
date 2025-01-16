@@ -3,6 +3,7 @@ import { AdminLogin } from './AdminLogin'
 import { AdminAddWord } from './AdminAddWord'
 import { AdminResetButton } from './AdminResetButton'
 import { AdminDeleteWord } from './AdminDeleteWord'
+import { WordsList } from '../Features/WordsList'
 
 export const AdminPage = ({ setWords, words, finnish, setFinnish,
     english, setEnglish, handleAddWord }) => {
@@ -25,6 +26,8 @@ export const AdminPage = ({ setWords, words, finnish, setFinnish,
         words
     }
 
+    const wordsListProps = { words }
+
     return (
         <div className="admin-page">
             {!admin ? <AdminLogin password={password} setAdmin={setAdmin} />
@@ -36,6 +39,7 @@ export const AdminPage = ({ setWords, words, finnish, setFinnish,
                     <AdminResetButton {...adminResetButtonProps} />
                     <AdminAddWord {...adminAddWordProps} />
                     <AdminDeleteWord {...adminDeleteWordProps} />
+                    <WordsList {...wordsListProps} />
                 </div>
             ) : null}
         </div>
