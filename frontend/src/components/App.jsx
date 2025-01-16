@@ -3,9 +3,9 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import '../stylesheets/App.css'
 import { fetchWords } from './ApiConnections/FetchWords'
 import { addWord } from './ApiConnections/AddWord'
-import { Navbar } from './Features/Navbar'
 import { Quiz } from './Features/Quiz/Quiz'
 import { AdminPage } from './AdminOnly/AdminPage'
+import { Header } from './Features/Header'
 
 const App = () => {
     const [words, setWords] = useState([])
@@ -48,8 +48,7 @@ const App = () => {
     return (
         <BrowserRouter>
             <div className="app">
-                <h1>Learn English!</h1>
-                <Navbar />
+                <Header />
                 <Routes>
                     <Route path="/" element={<Quiz words={words} />} />
                     <Route path="/admin" element={<AdminPage {...adminProps} />} />
