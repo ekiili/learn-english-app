@@ -5,7 +5,7 @@ import { AdminResetButton } from './AdminResetButton'
 import { AdminDeleteWord } from './AdminDeleteWord'
 
 export const AdminPage = ({ setWords, words, finnish, setFinnish,
-    english, setEnglish, handleAddWord, setTranslations }) => {
+    english, setEnglish, handleAddWord }) => {
 
     const password = "admin"
     const [admin, setAdmin] = useState(false)
@@ -18,10 +18,7 @@ export const AdminPage = ({ setWords, words, finnish, setFinnish,
         handleAddWord
     }
 
-    const adminResetButtonProps = {
-        setWords,
-        setTranslations
-    }
+    const adminResetButtonProps = { setWords }
 
     const adminDeleteWordProps = {
         setWords,

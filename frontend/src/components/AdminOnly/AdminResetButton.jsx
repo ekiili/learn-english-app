@@ -2,7 +2,7 @@ import React from 'react'
 import { resetStatuses } from '../ApiConnections/ResetStatuses'
 import { fetchWords } from '../ApiConnections/FetchWords'
 
-export const AdminResetButton = ({ setWords, setTranslations }) => {
+export const AdminResetButton = ({ setWords }) => {
 
     return (
         <button className='reset-button btn' onClick={() => {
@@ -10,8 +10,6 @@ export const AdminResetButton = ({ setWords, setTranslations }) => {
             resetStatuses()
             // Fetch words again to update the list
             fetchWords(setWords)
-            // Reset translations to empty any correct answers from the input boxes
-            setTranslations({})
         }}>Reset all progress</button>
     )
 }
