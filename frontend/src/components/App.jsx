@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import '../stylesheets/App.css'
 import { fetchWords } from './ApiConnections/FetchWords'
 import { addWord } from './ApiConnections/AddWord'
-import { AdminPage } from './AdminOnly/AdminPage'
+import { Navbar } from './Navigation/Navbar'
 import { Quiz } from './Features/Quiz/Quiz'
+import { AdminPage } from './AdminOnly/AdminPage'
 
 const App = () => {
     const [words, setWords] = useState([])
@@ -44,14 +46,16 @@ const App = () => {
     }
 
     return (
-        <div className="app">
-
-            <h1>Learn English!</h1>
-
-            {/* Admin page */}
-            <AdminPage {...adminProps} />
-            <Quiz words={words} />
-        </div>
+        <BrowserRouter>
+            <div className="app">
+                <h1>Learn English!</h1>
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<Quiz words={words} />} />
+                    <Route path="/admin" element={<AdminPage {...adminProps} />} />
+                </Routes>
+            </div>
+        </BrowserRouter>
     )
 }
 
