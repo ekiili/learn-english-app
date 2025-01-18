@@ -1,0 +1,26 @@
+@mixin styles {
+    @include text-styles();
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 40px;
+    transition: all 0.25s ease-in-out;
+
+    &:focus {
+        border-color: #fefdde;
+        outline: none;
+    }
+}
+
+@mixin text-styles ($fontSize: 1.2rem) {
+    font-family: 'Quicksand', sans-serif;
+    color: #e0e0e0;
+    font-size: $fontSize;
+}
+
+@mixin transparent-box {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.4);
+    border-radius: 40px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
