@@ -1,14 +1,12 @@
 import { updateStatus } from '../../../ApiConnections/UpdateStatus'
 
 export const checkAnswer = (userAnswer, randomWord) => {
-    if (!randomWord) return
+    if (!randomWord) return null
 
     if (userAnswer.toLowerCase() === randomWord.english_version.toLowerCase()) {
-        alert("Correct!")
         updateStatus(randomWord.id, 1)
-        return
+        return true
     } else {
-        alert("Incorrect!")
-        return
+        return false
     }
 }
