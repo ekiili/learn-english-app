@@ -4,7 +4,7 @@ body {
   margin: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(150deg, #1e685b, #0e413a);
+  background: linear-gradient(150deg, #001a1d, #00090a);
   overflow-x: hidden;
   transition: all 0.3s ease-in-out;
 }
@@ -70,11 +70,11 @@ input {
   border: 2px solid rgba(255, 255, 255, 0.4);
   border-radius: 40px;
   transition: all 0.25s ease-in-out;
+  border-radius: 2px;
   padding: 10px;
-  margin: 10px;
-  margin-top: 0;
   width: 300px;
   text-align: center;
+  margin: 0 10px 10px 10px;
 }
 input:focus {
   border-color: #fefdde;
@@ -146,10 +146,6 @@ input:focus::placeholder {
   width: 100%;
 }
 
-.correct-translation {
-  color: rgb(11, 234, 11);
-}
-
 .random-word {
   font-family: "Quicksand", sans-serif;
   color: #e0e0e0;
@@ -186,4 +182,36 @@ input:focus::placeholder {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
+}
+
+.quiz-correct-answer-text {
+  font-family: "Quicksand", sans-serif;
+  color: #e0e0e0;
+  font-size: 1.4rem;
+  color: green;
+}
+
+.quiz-wrong-answer-text {
+  font-family: "Quicksand", sans-serif;
+  color: #e0e0e0;
+  font-size: 1.4rem;
+  color: red;
+}
+
+.invis-text {
+  font-family: "Quicksand", sans-serif;
+  color: #e0e0e0;
+  font-size: 1.4rem;
+  visibility: hidden;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  pointer-events: none;
+}
+
+.error-message {
+  font-family: "Quicksand", sans-serif;
+  color: #e0e0e0;
+  font-size: 1.2rem;
+  color: red;
 }/*# sourceMappingURL=App.css.map */
