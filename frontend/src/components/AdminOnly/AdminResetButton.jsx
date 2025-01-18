@@ -2,6 +2,7 @@ import React from 'react'
 import { resetStatuses } from '../ApiConnections/ResetStatuses'
 import { fetchWords } from '../ApiConnections/FetchWords'
 
+// CURRENTLY NOT USED
 export const AdminResetButton = ({ setWords }) => {
 
     return (

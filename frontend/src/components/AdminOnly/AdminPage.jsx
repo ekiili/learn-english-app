@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { AdminLogin } from './AdminLogin'
 import { AdminAddWord } from './AdminAddWord'
-import { AdminResetButton } from './AdminResetButton'
 import { AdminDeleteWord } from './AdminDeleteWord'
 import { WordsList } from '../Features/WordsList'
+// import { AdminResetButton } from './AdminResetButton'
 
 export const AdminPage = ({ setWords, words, finnish, setFinnish,
     english, setEnglish, handleAddWord }) => {
@@ -36,7 +36,7 @@ export const AdminPage = ({ setWords, words, finnish, setFinnish,
             {/* If admin is logged in, display the admin functions */}
             {admin ? (
                 <div className="admin-wrapper">
-                    <AdminResetButton {...adminResetButtonProps} />
+                    {/*<AdminResetButton {...adminResetButtonProps} />*/}
                     <AdminAddWord {...adminAddWordProps} />
                     <AdminDeleteWord {...adminDeleteWordProps} />
                     <WordsList {...wordsListProps} />
