@@ -9,19 +9,10 @@ export const WordsList = ({ words }) => {
                     <li>No words found.</li>
                 ) : (
                     words.map((word) => (
-                        <div key={word.id}>
+                        <div className='words-list-element' key={word.id}>
                             <li>
-                                <strong>{word.finnish_version}:</strong>
+                                <strong>{word.finnish_version} - {word.english_version}</strong>
                             </li>
-
-                            {/* If the word is learned (status is 1), display the correct translation */}
-                            {word.status === 1 ? (
-                                <p className='correct-translation'>
-                                    <strong>Correct Translation:</strong> {word.english_version}
-                                </p>
-                            ) : (
-                                <p>Status: Not Learned</p>
-                            )}
                         </div>
                     ))
                 )}
