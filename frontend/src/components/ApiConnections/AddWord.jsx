@@ -5,7 +5,6 @@ const URL = 'http://localhost:3000/words'
 export const addWord = async (finnish, english) => {
 
     if (!finnish || !english) {
-        alert('Both Finnish and English words are required')
         return
     }
 
