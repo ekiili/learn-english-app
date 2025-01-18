@@ -40,7 +40,7 @@ export const Quiz = ({ words }) => {
 
     return (
         <div className='quiz-wrapper'>
-            <h2>Translation Quiz</h2>
+            <h2>Quiz</h2>
 
             {shuffledWords.length > 0 ? (
                 <div className='quiz-element'>
