@@ -4,15 +4,21 @@ import { QuizTranslationInput } from './QuizTranslationInput'
 import { QuizSubmitButton } from './QuizSubmitButton'
 import { QuizNextWordButton } from './QuizNextWordButton'
 import { getShuffledWords } from './QuizLogic/getShuffledWords'
+import { QuizAnswerFeedback } from './QuizAnswerFeedback'
 
 export const Quiz = ({ words }) => {
 
     const [shuffledWords, setShuffledWords] = useState([])
     const [currentWordIndex, setCurrentWordIndex] = useState(0)
     const [userAnswer, setUserAnswer] = useState("")
+    const [answerStatus, setAnswerStatus] = useState(null)
+
     const currentWord = shuffledWords[currentWordIndex]
+    // Set currentWord if shuffledWords is ready
+    const correctAnswer = shuffledWords.length > 0 ? currentWord.english_version : null
 
     useEffect(() => {
+        // Shuffle words when words is ready
         if (words.length > 0) {
             const shuffled = getShuffledWords(words)
             setShuffledWords(shuffled)
@@ -26,16 +32,22 @@ export const Quiz = ({ words }) => {
             setCurrentWordIndex(nextIndex)
         } else setCurrentWordIndex(0)
         setUserAnswer("")
+        setAnswerStatus(null)
     }
 
     const handleSubmit = () => {
-        checkAnswer(userAnswer, currentWord)
+        setAnswerStatus(checkAnswer(userAnswer, currentWord))
         setUserAnswer("")
     }
 
     const translationInputProps = {
         userAnswer,
         setUserAnswer
+    }
+
+    const answerFeedbackProps = {
+        answerStatus,
+        correctAnswer
     }
 
     return (
@@ -46,6 +58,7 @@ export const Quiz = ({ words }) => {
                 <div className='quiz-element'>
                     <p className='random-word'>{currentWord.finnish_version}:</p>
                     <QuizTranslationInput {...translationInputProps} />
+                    <QuizAnswerFeedback {...answerFeedbackProps} />
                     <QuizSubmitButton handleSubmit={handleSubmit} />
                     <QuizNextWordButton getNextWord={getNextWord} />
                 </div>
