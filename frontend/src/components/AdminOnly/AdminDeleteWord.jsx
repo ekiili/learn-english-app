@@ -10,7 +10,7 @@ export const AdminDeleteWord = ({ setWords, words }) => {
         const wordToDelete = words.find(word => word.finnish_version === deleteTarget)
 
         if (!wordToDelete) {
-            return alert('Word not found')
+            return
         }
 
         // Delete the word using the id
