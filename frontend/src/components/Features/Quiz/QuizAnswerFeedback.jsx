@@ -2,7 +2,7 @@ import React from 'react'
 
 export const QuizAnswerFeedback = ({ answerStatus, correctAnswer }) => {
     if (answerStatus === null) {
-        return <p className='invis-text'>invisible text</p>
+        return <strong className='invis-text'>invisible text aaaaaaaaaa</strong>
     }
 
     if (answerStatus === true) {
