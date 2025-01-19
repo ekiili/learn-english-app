@@ -1,19 +1,16 @@
 # Learn English App
 
-This is a language learning app where users can practice translating Finnish words into English. An admin panel is included to add, delete, and manage words. The app also allows users to track which words they have learned.
+This is a language learning app where users can practice translating Finnish words into English. An admin panel is included to add and delete words.
+
+![image](https://github.com/user-attachments/assets/7b240d5e-945f-49fe-af7a-4df6919b1ccb)
 
 ## Features
 
 - Users can check the translation of Finnish words into English.
-- Admin login to manage the word list.
-- Tracks learned words and displays the correct translation if a word is learned.
-
-## Admin Features
-
-The app includes an admin panel that allows admins to:
-
-- Add new words with their Finnish and English translations.
-- Reset the users progress.
-- Delete specific words from the list.
+- Admin panel to manage the word list.
 
 To log in as an admin, use the password `admin`.
+
+## Screencast
+
+https://www.youtube.com/watch?v=PC7oLCrcHYk
