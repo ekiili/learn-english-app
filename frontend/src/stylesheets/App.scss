@@ -69,10 +69,6 @@ input {
     }
 }
 
-.words-list {
-    @include text-styles(1.2rem)
-}
-
 .header {
     display: flex;
     align-items: center;
@@ -146,6 +142,8 @@ input {
 }
 
 .words-list {
+    @include text-styles(1.2rem);
+    max-height: 30vh;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
