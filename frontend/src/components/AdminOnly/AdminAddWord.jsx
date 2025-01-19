@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import { addWord } from '../ApiConnections/AddWord'
 import { fetchWords } from '../ApiConnections/FetchWords'
 
-export const AdminAddWord = ({ finnish, setFinnish, english, setEnglish, setWords }) => {
+export const AdminAddWord = ({ setWords }) => {
 
     const [errorMessage, setErrorMessage] = useState('')
+    const [finnish, setFinnish] = useState('')
+    const [english, setEnglish] = useState('')
 
     // Handle form submission to add a new word
     const handleSubmit = async (e) => {

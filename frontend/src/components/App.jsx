@@ -8,8 +8,6 @@ import { Header } from './Features/Header'
 
 const App = () => {
     const [words, setWords] = useState([])
-    const [finnish, setFinnish] = useState('')
-    const [english, setEnglish] = useState('')
 
     // Fetch words list on component mount
     useEffect(() => {
@@ -19,11 +17,7 @@ const App = () => {
     // Props for the admin page
     const adminProps = {
         setWords,
-        words,
-        finnish,
-        setFinnish,
-        english,
-        setEnglish
+        words
     }
 
     return (

@@ -6,22 +6,10 @@ import { WordsList } from '../Features/WordsList'
 
 // import { AdminResetButton } from './AdminResetButton'
 
-export const AdminPage = ({ setWords, words, finnish, setFinnish,
-    english, setEnglish }) => {
+export const AdminPage = ({ setWords, words }) => {
 
     const password = "admin"
     const [admin, setAdmin] = useState(false)
-
-    const adminAddWordProps = {
-        finnish,
-        setFinnish,
-        english,
-        setEnglish,
-        setWords
-    }
-
-    const adminResetButtonProps = { setWords }
-
     const adminDeleteWordProps = {
         setWords,
         words
@@ -37,8 +25,7 @@ export const AdminPage = ({ setWords, words, finnish, setFinnish,
             {/* If admin is logged in, display the admin functions */}
             {admin ? (
                 <div className="admin-wrapper">
-                    {/*<AdminResetButton {...adminResetButtonProps} />*/}
-                    <AdminAddWord {...adminAddWordProps} />
+                    <AdminAddWord setWords={setWords} />
                     <AdminDeleteWord {...adminDeleteWordProps} />
                     <WordsList {...wordsListProps} />
                 </div>
