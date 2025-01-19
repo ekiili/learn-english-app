@@ -36,7 +36,23 @@ db.serialize(() => {
             const defaultWords = [
                 { finnish: 'kissa', english: 'cat' },
                 { finnish: 'koira', english: 'dog' },
+                { finnish: 'talo', english: 'house' },
+                { finnish: 'auto', english: 'car' },
+                { finnish: 'puu', english: 'tree' },
+                { finnish: 'kirja', english: 'book' },
+                { finnish: 'vesi', english: 'water' },
+                { finnish: 'ruoka', english: 'food' },
+                { finnish: 'kaupunki', english: 'city' },
+                { finnish: 'kukka', english: 'flower' },
+                { finnish: 'tuoli', english: 'chair' },
+                { finnish: 'pöytä', english: 'table' },
+                { finnish: 'ikkuna', english: 'window' },
+                { finnish: 'koulu', english: 'school' },
+                { finnish: 'musiikki', english: 'music' },
+                { finnish: 'tanssi', english: 'dance' },
+                { finnish: 'eläin', english: 'animal' }
             ]
+
 
             const insertQuery = `INSERT INTO words (finnish_version, english_version, status) VALUES (?, ?, 0)` // Default status is 0 (not learned)
             defaultWords.forEach(word => {
